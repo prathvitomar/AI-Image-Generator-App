@@ -25,29 +25,30 @@ const CreatePost = () => {
   };
 
   const generateImage = async () => {
-    // if (form.prompt) {
-    //   try {
-    //     setGeneratingImg(true);
-    //     const response = await fetch('https://dalle-arbb.onrender.com/api/v1/dalle', {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //       body: JSON.stringify({
-    //         prompt: form.prompt,
-    //       }),
-    //     });
+    if (form.prompt) {
+      try {
+        setGeneratingImg(true);
+        const response = await fetch('http://localhost:8080/api/v1/dalle', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            prompt: form.prompt,
+          }),
+        });
 
-    //     const data = await response.json();
-    //     setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
-    //   } catch (err) {
-    //     alert(err);
-    //   } finally {
-    //     setGeneratingImg(false);
-    //   }
-    // } else {
-    //   alert('Please provide proper prompt');
-    // }
+        const data = await response.json();
+        console.log(data);
+        setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
+      } catch (err) {
+        alert(err);
+      } finally {
+        setGeneratingImg(false);
+      }
+    } else {
+      alert('Please provide proper prompt');
+    }
   };
 
   const handleSubmit = async (e) => {
